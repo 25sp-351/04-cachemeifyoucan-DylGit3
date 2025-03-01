@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.sqlbook": "sql",
+        "*.ndjson": "jsonl",
+        "*.dbclient-js": "javascript",
+        "policy_b_cache.h": "c",
+        "piece_values.h": "c",
+        "policy_a_cache.h": "c",
+        "vec.h": "c"
+    }
+}
