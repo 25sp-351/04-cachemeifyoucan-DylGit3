@@ -7,7 +7,6 @@
 #include "cut_list.h"
 #include "piece_values.h"
 #include "policy_a_cache.h"
-#include "policy_b_cache.h"
 #include "vec.h"
 
 #define LINE_LENGTH 256

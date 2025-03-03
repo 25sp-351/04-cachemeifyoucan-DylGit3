@@ -44,7 +44,7 @@ Vec read_piece_values() {
 
 bool _list_contains_length(Vec v, PieceLength len) {
     PieceLengthValue *items = vec_items(v);
-    for (int ix = 0; ix < v->length; ix++)
+    for (size_t ix = 0; ix < v->length; ix++)
         if (items[ix].length == len)
             return true;
 
@@ -53,7 +53,7 @@ bool _list_contains_length(Vec v, PieceLength len) {
 
 void print_piece_values(Vec v) {
     PieceLengthValue *items = vec_items(v);
-    for (int ix = 0; ix < v->length; ix++)
+    for (size_t ix = 0; ix < v->length; ix++)
         printf("length %4d, value %4d\n", items[ix].length, items[ix].value);
 }
 

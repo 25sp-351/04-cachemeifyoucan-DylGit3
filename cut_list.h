@@ -16,6 +16,7 @@ typedef struct cut_list {
 } CutList;
 
 CutList* new_cutlist(PieceLength piecelength);
+CutList* copy_cutlist(CutList* cut_list);
 CutList* best_cut_list(CutList* cut_list, Vec value_list);
 CutList* optimal_cutlist(Vec value_list, PieceLength rod_length);
 CutList* add_cutlist_piece(CutList* cut_list, PieceLengthValue plv);

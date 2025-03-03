@@ -4,9 +4,9 @@
 #include <stdlib.h>
 
 #include "piece_values.h"
+// #include "policy_a_cache.h"
 #include "vec.h"
-#include "policy_a_cache.h"
-#include "policy_b_cache.h"
+// #include "policy_b_cache.h"
 
 CutList* new_cutlist(PieceLength piecelength) {
     CutList* new_cl   = malloc(sizeof(CutList));
@@ -73,14 +73,7 @@ CutList* best_cut_list(CutList* starting_cut_list, Vec pieces_vec) {
 }
 
 CutList* optimal_cutlist(Vec value_list, PieceLength rod_length) {
-    CutList* cached_result = cache_lookup(rod_length);
-    if (cached_result != NULL)
-        return cached_result;
-
     CutList* result = best_cut_list(new_cutlist(rod_length), value_list);
-
-    cache_insert(rod_length, result);
-
     return result;
 }
 
