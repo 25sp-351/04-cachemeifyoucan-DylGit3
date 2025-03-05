@@ -12,26 +12,38 @@ CacheEntry cache[CACHE_SIZE];
 static int cache_count = 0;
 static ProviderFunction downstream_provider;
 
-void move_to_front(int index) {
+void cache_load(void) {
+    for (int ix = 0; ix < CACHE_SIZE; ++ix) {
+        cache[ix].rod_length = -1;
+        cache[ix].result     = NULL;
+    }
+}
+
+void move_to_front(PieceLength index) {
     CacheEntry temp_cut = cache[index];
     for (int ix = index; ix > 0; ix--)
         cache[ix] = cache[ix - 1];
     cache[0] = temp_cut;
 }
 
-ValueType cache_lookup(int rod_length) {
+ValueType cache_lookup(Vec value_list, PieceLength rod_length) {
     for (int ix = 0; ix < cache_count; ++ix) {
         if (cache[ix].rod_length == rod_length) {
             move_to_front(ix);
             return cache[ix].result;
         }
     }
-    return NULL;
+
+    ValueType output = (*downstream_provider)(value_list, rod_length);
+    cache_insert(rod_length, output);
+    return output;
 }
 
-void cache_insert(int rod_length, ValueType result) {
-    if (cache_count == CACHE_SIZE)
+void cache_insert(PieceLength rod_length, ValueType result) {
+    if (cache_count == CACHE_SIZE) {
+        free(cache[cache_count - 1].result);
         cache_count--;
+    }
 
     for (int ix = cache_count; ix > 0; --ix)
         cache[ix] = cache[ix - 1];

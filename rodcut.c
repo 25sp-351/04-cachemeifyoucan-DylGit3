@@ -50,8 +50,12 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // print_piece_values(value_list);
-    CutList *cl = optimal_cutlist(value_list, rod_length);
+    cache_load();
+
+    ProviderFunction provider = optimal_cutlist;
+    provider                  = set_provider(optimal_cutlist);
+
+    CutList *cl               = provider(value_list, rod_length);
     cutlist_print(cl, rod_length);
     cutlist_free(cl);
     vec_free(value_list);

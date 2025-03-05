@@ -19,17 +19,17 @@ void cache_load(void) {
     }
 }
 
-CutList* cache_lookup(int rod_length) {
-    for (int i = 0; i < cache_count; i++)
-        if (cache[i].rod_length == rod_length)
-            return cache[i].result;
+CutList* cache_lookup(Vec value_list, PieceLength rod_length) {
+    for (int ix = 0; ix < cache_count; ++ix)
+        if (cache[ix].rod_length == rod_length)
+            return cache[ix].result;
 
-    ValueType output = (*downstream_provider)(rod_length);
+    ValueType output = (*downstream_provider)(value_list, rod_length);
     cache_insert(rod_length, output);
     return output;
 }
 
-void cache_insert(int rod_length, CutList* result) {
+void cache_insert(PieceLength rod_length, CutList* result) {
     if (cache_count == CACHE_SIZE) {
         free(cache[cache_count - 1].result);
         cache_count--;
