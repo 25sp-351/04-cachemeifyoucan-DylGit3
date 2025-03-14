@@ -1,16 +1,24 @@
-#include "policy_a_cache.h"
-
 #include <dlfcn.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "cache.h"
 #include "cut_list.h"
+
+#define CACHE_SIZE 100
+
+typedef struct CacheEntry {
+    int rod_length;
+    ValueType result;
+} CacheEntry;
 
 CacheEntry cache[CACHE_SIZE];
 static int cache_count = 0;
 static ProviderFunction downstream_provider;
+
+void cache_insert(PieceLength rod_length, ValueType result);
 
 void cache_load(void) {
     for (int ix = 0; ix < CACHE_SIZE; ++ix) {
@@ -62,6 +70,7 @@ void cache_clear() {
 }
 
 ProviderFunction set_provider(ProviderFunction downstream) {
+    cache_load();
     fprintf(stderr, __FILE__ " set_provider()\n");
     downstream_provider = downstream;
     return cache_lookup;

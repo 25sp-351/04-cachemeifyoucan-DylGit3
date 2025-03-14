@@ -6,6 +6,8 @@
         "policy_b_cache.h": "c",
         "piece_values.h": "c",
         "policy_a_cache.h": "c",
-        "vec.h": "c"
+        "vec.h": "c",
+        "cut_list.h": "c",
+        "cache.h": "c"
     }
 }

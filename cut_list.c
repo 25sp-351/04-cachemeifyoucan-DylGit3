@@ -4,9 +4,7 @@
 #include <stdlib.h>
 
 #include "piece_values.h"
-// #include "policy_a_cache.h"
 #include "vec.h"
-// #include "policy_b_cache.h"
 
 CutList* new_cutlist(PieceLength piecelength) {
     CutList* new_cl   = malloc(sizeof(CutList));

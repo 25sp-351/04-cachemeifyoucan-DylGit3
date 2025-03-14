@@ -4,9 +4,9 @@
 #include <stdnoreturn.h>
 #include <string.h>
 
+#include "cache.h"
 #include "cut_list.h"
 #include "piece_values.h"
-#include "policy_a_cache.h"
 #include "vec.h"
 
 #define LINE_LENGTH 256
@@ -49,8 +49,6 @@ int main(int argc, char *argv[]) {
             return 1;
         }
     }
-
-    cache_load();
 
     ProviderFunction provider = optimal_cutlist;
     provider                  = set_provider(optimal_cutlist);

@@ -1,24 +1,21 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
 
-SRC = rodcut.c cut_list.c piece_values.c vec.c
-HDR = cut_list.h piece_values.h vec.h policy_a_cache.h
+OBJS = cut_list.o piece_values.o rodcut.o vec.o
 
-OBJ = $(SRC:.c=.o) policy_a_cache.o
+all: rodcut_a rodcut_b
 
-all: rodcut_a
+rodcut_a: $(OBJS) policy_a_cache.o
+	$(CC) $(CFLAGS) -o rodcut_a $(OBJS) policy_a_cache.o
 
-rodcut_a: $(OBJ)
-	$(CC) $(CFLAGS) -o rodcut_a $(OBJ)
+rodcut_b: $(OBJS) policy_b_cache.o
+	$(CC) $(CFLAGS) -o rodcut_b $(OBJS) policy_b_cache.o
 
-%.o: %.c $(HDR)
-	$(CC) $(CFLAGS) -c $< -o $@
+policy_a_cache.o: cut_list.h cache.h
 
-policy_a_cache.o: policy_a_cache.c policy_a_cache.h
-	$(CC) $(CFLAGS) -c policy_a_cache.c -o policy_a_cache.o
+policy_b_cache.o: cut_list.h cache.h
+
+cut_list.o: piece_values.h vec.h
 
 clean:
-	rm -f *.o rodcut_a
-
-run: all
-	./rodcut_a input.txt
+	rm -f *.o rodcut_a rodcut_b
